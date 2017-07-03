@@ -1,0 +1,20 @@
+{
+    "cordova-plugin-lightsensor": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/DeshanKTD/cordova-plugin-lightsensor.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-insomnia": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    }
+}
