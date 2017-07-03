@@ -38,7 +38,7 @@ info.prototype = {
             font: '17px ' + font, fill: 'yellow', fontWeight: 'normal', align: 'center'
         });
         Label_support2.alpha = 0.8;
-        }
+    }
 };
 
 

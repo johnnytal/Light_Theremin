@@ -1,11 +1,14 @@
 document.addEventListener("deviceready", start, false);
+document.addEventListener("pause", onPause, false);
+document.addEventListener("resume", onResume, false);
+
 //window.onload = start;
 
 function start(){
     WIDTH = 850; 
     HEIGHT = 1100;
 
-    game = new Phaser.Game(WIDTH, HEIGHT, Phaser.CANVAS, '');
+    game = new Phaser.Game(WIDTH, HEIGHT, Phaser.CANVAS, 'game');
 
     game.state.add("Boot", boot);
     game.state.add("Preloader", preloader);
@@ -37,4 +40,15 @@ boot.prototype = {
     }
 };
 
+function onPause(){
+    game.paused = true;
+}
 
+function onResume(){
+    game.paused = false;
+    setTimeout(function(){
+        try{
+            StatusBar.hide();
+        }catch(e){}   
+    }, 1000);
+}

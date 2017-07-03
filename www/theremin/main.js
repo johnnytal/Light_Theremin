@@ -167,7 +167,7 @@ function mute(){
     if (mute_btn.frame == 0){
         mute_btn.frame = 1; 
         
-        osc.pause(); 
+        osc.pause();
         rev.pause();
     }
     else{
@@ -182,18 +182,21 @@ function initAd(){
     var admobid = {};
 
     admobid = {
-        interstitial: 'ca-app-pub-9795366520625065/2870402631',
-        banner: 'ca-app-pub-9795366520625065/7321032237'
+        banner: 'ca-app-pub-9795366520625065/7321032237',
+        interstitial: 'ca-app-pub-9795366520625065/2870402631'
     };
 
     if(AdMob) AdMob.createBanner({
        adId: admobid.banner,
        position: AdMob.AD_POSITION.BOTTOM_RIGHT,
-       autoShow: true,
-       isTesting: false
+       autoShow: true
     });
 
     if(AdMob) AdMob.prepareInterstitial( {adId:admobid.interstitial, autoShow:false} );
+    
+    setTimeout(function(){
+       AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_RIGHT); 
+    }, 3000);
 }
 
 function buttons_labels(){
