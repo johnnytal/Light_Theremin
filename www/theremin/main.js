@@ -1,7 +1,7 @@
 var gameMain = function(game){   
     var osc, rev, luminosity, frequency, frequency_check;
     var note, last_frequency, factor, form, scale, reverb, sensitivity;
-    //var btns = [];
+    var btns = [];
 
     sensitivities = [100, 70, 40, 15, 1];
     reverbs = [0.1, 0.3, 0.5, 0.7, 0.9];
@@ -77,8 +77,8 @@ gameMain.prototype = {
             } catch(e){}    
         }, 1000);
 
-        initAd();
-        getReading();
+        //initAd();
+        //getReading();
     }
 };
 
@@ -384,7 +384,7 @@ function buttons_labels(){
     });
     Label_support2.alpha = 0.7;*/
     
-    //btns = [reset_btn, info_btn, support_btn, mute_btn, minus_btn_sens, plus_btn_sens, minus_btn_rev, plus_btn_rev, next_btn_scale, prev_btn_scale, next_btn_wave, prev_btn_wave];
+    btns = [reset_btn, info_btn,  mute_btn, minus_btn_sens, plus_btn_sens, minus_btn_rev, plus_btn_rev, next_btn_scale, prev_btn_scale, next_btn_wave, prev_btn_wave]; // support_btn,
 }
 
 function calibrate(num){
