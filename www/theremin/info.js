@@ -15,29 +15,23 @@ info.prototype = {
             font: '28px ' + font, fill: 'white', align: 'left', stroke:'#ffffff', strokeThickness: 0
         });
         
-        return_btn = game.add.sprite(600, 860, 'return');
+        return_btn = game.add.sprite(300, 900, 'return');
         return_btn.scale.set(0.6, 0.6);
         return_btn.inputEnabled = true;
         return_btn.events.onInputDown.add(function(){
+            if(AdMob) AdMob.showInterstitial();
             game.state.start("Game");  
         }, this);
-        
-     /*   support_btn = game.add.sprite(134, 910, 'support');
-        support_btn.scale.set(0.47, 0.46);
-        support_btn.inputEnabled = true;
-        support_btn.events.onInputDown.add(function(){
-            if(AdMob) AdMob.showInterstitial();
-        }, this);
        
-        Label_support= game.add.text(20, 785, 'This indie project will always remain free.\nYou can support it by showing and clicking an ad,\nor by rating and reviewing it in the play store.\nThank you. enjoy!', {
-            font: '18px ' + font, fill: 'white', fontWeight: 'normal', align: 'center'
+        Label_support= game.add.text(30, 700, 'To support this project and get the latest updates,\n please consider purchasing "Light Theremin - Supporters edition"\n at the play store (also, of course, removes ads)', {
+            font: '32px ' + font, fill: 'white', fontWeight: 'normal', align: 'center'
         });
         Label_support.alpha = 0.8;
         
-        Label_support2= game.add.text(158, 917, 'Show ad', {
-            font: '17px ' + font, fill: 'yellow', fontWeight: 'normal', align: 'center'
+        game.add.text(110, 860, '(Interstitial ad will be displayed before returning to main screen)', {
+            font: '22px ' + font, fill: 'white', fontWeight: 'normal', align: 'center'
         });
-        Label_support2.alpha = 0.8;*/
+
     }
 };
 

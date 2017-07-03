@@ -77,7 +77,7 @@ gameMain.prototype = {
             } catch(e){}    
         }, 1000);
 
-        //initAd();
+        initAd();
         getReading();
     }
 };
@@ -178,26 +178,26 @@ function mute(){
     } 
 }
 
-/*function initAd(){
+function initAd(){
     var admobid = {};
 
     admobid = {
-      //  banner: 'ca-app-pub-9795366520625065/8959215838',
-        interstitial: 'ca-app-pub-9795366520625065/2870402631'
+        interstitial: 'ca-app-pub-9795366520625065/2870402631',
+        banner: 'ca-app-pub-9795366520625065/8959215838'
     };
 
     if(AdMob) AdMob.createBanner({
        adId: admobid.banner,
        position: AdMob.AD_POSITION.BOTTOM_CENTER,
-       autoShow: false
+       autoShow: true
     });
     
     if(AdMob) AdMob.prepareInterstitial( {adId:admobid.interstitial, autoShow:false} );
     
-    setTimeout(function(){
+   /* setTimeout(function(){
        AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER); 
-    }, 2000);
-}*/
+    }, 2000);*/
+}
 
 function buttons_labels(){
     game.add.text(40, 225, 'Waveform', {
@@ -370,21 +370,8 @@ function buttons_labels(){
         game.state.start("Preloader");  
     }, this);
     reset_btn.alpha = 0.9;
- 
-    /*support_btn = game.add.sprite(70, 900, 'support');
-    support_btn.scale.set(0.5, 0.5);
-    support_btn.inputEnabled = true;
-    support_btn.events.onInputDown.add(function(){
-        if(AdMob) AdMob.showInterstitial();
-    }, this);
-    support_btn.alpha = 0.8;
 
-    Label_support2= game.add.text(70, 900, 'Show ad to support', {
-        font: '17px ' + font, fill: 'yellow', fontWeight: 'normal', align: 'center'
-    });
-    Label_support2.alpha = 0.7;*/
-    
-    btns = [reset_btn, info_btn,  mute_btn, minus_btn_sens, plus_btn_sens, minus_btn_rev, plus_btn_rev, next_btn_scale, prev_btn_scale, next_btn_wave, prev_btn_wave]; // support_btn,
+    btns = [reset_btn, info_btn,  mute_btn, minus_btn_sens, plus_btn_sens, minus_btn_rev, plus_btn_rev, next_btn_scale, prev_btn_scale, next_btn_wave, prev_btn_wave];
 }
 
 function calibrate(num){
