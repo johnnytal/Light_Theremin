@@ -1,7 +1,7 @@
 var gameMain = function(game){   
     var osc, rev, luminosity, frequency, frequency_check;
     var note, last_frequency, factor, form, scale, reverb, sensitivity;
-    var btns = [];
+    //var btns = [];
 
     sensitivities = [100, 70, 40, 15, 1];
     reverbs = [0.1, 0.3, 0.5, 0.7, 0.9];
@@ -178,7 +178,7 @@ function mute(){
     } 
 }
 
-function initAd(){
+/*function initAd(){
     var admobid = {};
 
     admobid = {
@@ -186,18 +186,18 @@ function initAd(){
         interstitial: 'ca-app-pub-9795366520625065/2870402631'
     };
 
-   /* if(AdMob) AdMob.createBanner({
+    if(AdMob) AdMob.createBanner({
        adId: admobid.banner,
        position: AdMob.AD_POSITION.BOTTOM_CENTER,
        autoShow: false
-    });*/
-
+    });
+    
     if(AdMob) AdMob.prepareInterstitial( {adId:admobid.interstitial, autoShow:false} );
     
-    /*setTimeout(function(){
+    setTimeout(function(){
        AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER); 
-    }, 2000);*/
-}
+    }, 2000);
+}*/
 
 function buttons_labels(){
     game.add.text(40, 225, 'Waveform', {
@@ -371,7 +371,7 @@ function buttons_labels(){
     }, this);
     reset_btn.alpha = 0.9;
  
-    support_btn = game.add.sprite(70, 900, 'support');
+    /*support_btn = game.add.sprite(70, 900, 'support');
     support_btn.scale.set(0.5, 0.5);
     support_btn.inputEnabled = true;
     support_btn.events.onInputDown.add(function(){
@@ -382,9 +382,9 @@ function buttons_labels(){
     Label_support2= game.add.text(70, 900, 'Show ad to support', {
         font: '17px ' + font, fill: 'yellow', fontWeight: 'normal', align: 'center'
     });
-    Label_support2.alpha = 0.7;
+    Label_support2.alpha = 0.7;*/
     
-    btns = [reset_btn, info_btn, support_btn, mute_btn, minus_btn_sens, plus_btn_sens, minus_btn_rev, plus_btn_rev, next_btn_scale, prev_btn_scale, next_btn_wave, prev_btn_wave];
+    //btns = [reset_btn, info_btn, support_btn, mute_btn, minus_btn_sens, plus_btn_sens, minus_btn_rev, plus_btn_rev, next_btn_scale, prev_btn_scale, next_btn_wave, prev_btn_wave];
 }
 
 function calibrate(num){

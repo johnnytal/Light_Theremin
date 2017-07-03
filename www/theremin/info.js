@@ -22,7 +22,7 @@ info.prototype = {
             game.state.start("Game");  
         }, this);
         
-        support_btn = game.add.sprite(134, 910, 'support');
+     /*   support_btn = game.add.sprite(134, 910, 'support');
         support_btn.scale.set(0.47, 0.46);
         support_btn.inputEnabled = true;
         support_btn.events.onInputDown.add(function(){
@@ -37,7 +37,7 @@ info.prototype = {
         Label_support2= game.add.text(158, 917, 'Show ad', {
             font: '17px ' + font, fill: 'yellow', fontWeight: 'normal', align: 'center'
         });
-        Label_support2.alpha = 0.8;
+        Label_support2.alpha = 0.8;*/
     }
 };
 
