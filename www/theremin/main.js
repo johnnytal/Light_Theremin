@@ -188,15 +188,15 @@ function initAd(){
 
     if(AdMob) AdMob.createBanner({
        adId: admobid.banner,
-       position: AdMob.AD_POSITION.BOTTOM_RIGHT,
-       autoShow: true
+       position: AdMob.AD_POSITION.BOTTOM_CENTER,
+       autoShow: false
     });
 
     if(AdMob) AdMob.prepareInterstitial( {adId:admobid.interstitial, autoShow:false} );
     
     setTimeout(function(){
-       AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_RIGHT); 
-    }, 3000);
+       AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER); 
+    }, 2000);
 }
 
 function buttons_labels(){
