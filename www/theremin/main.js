@@ -182,7 +182,7 @@ function initAd(){
     var admobid = {};
 
     admobid = {
-        banner: 'ca-app-pub-9795366520625065/7321032237',
+        banner: 'ca-app-pub-9795366520625065/8959215838',
         interstitial: 'ca-app-pub-9795366520625065/2870402631'
     };
 
