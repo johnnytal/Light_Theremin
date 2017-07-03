@@ -182,21 +182,21 @@ function initAd(){
     var admobid = {};
 
     admobid = {
-        banner: 'ca-app-pub-9795366520625065/8959215838',
+      //  banner: 'ca-app-pub-9795366520625065/8959215838',
         interstitial: 'ca-app-pub-9795366520625065/2870402631'
     };
 
-    if(AdMob) AdMob.createBanner({
+   /* if(AdMob) AdMob.createBanner({
        adId: admobid.banner,
        position: AdMob.AD_POSITION.BOTTOM_CENTER,
        autoShow: false
-    });
+    });*/
 
     if(AdMob) AdMob.prepareInterstitial( {adId:admobid.interstitial, autoShow:false} );
     
-    setTimeout(function(){
+    /*setTimeout(function(){
        AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER); 
-    }, 2000);
+    }, 2000);*/
 }
 
 function buttons_labels(){
