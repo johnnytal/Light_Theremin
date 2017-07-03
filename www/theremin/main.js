@@ -78,7 +78,7 @@ gameMain.prototype = {
         }, 1000);
 
         //initAd();
-        //getReading();
+        getReading();
     }
 };
 
