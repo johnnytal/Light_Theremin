@@ -91,10 +91,6 @@ function watchReading(){
 }
 
 function getReading(){
-    try{
-        clearInterval(timer);
-    }catch(e){}
-    
     timer = setInterval(function(){
         window.plugin.lightsensor.getReading(function success(reading){
             readLight(reading);
@@ -413,7 +409,13 @@ function buttons_labels(){
 
 function changeTempo(){
     if (tempo != 0){
+                
+        try{
+            clearInterval(timer);
+        }catch(e){}
+        
         window.plugin.lightsensor.stop();
+
         getReading();
     }
     
