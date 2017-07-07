@@ -1,6 +1,6 @@
 var gameMain = function(game){   
     var osc, rev, luminosity, frequency, frequency_check;
-    var note, last_frequency, factor, form, scale, reverb, sensitivity;
+    var note, last_frequency, factor, form, scale, reverb, sensitivity, tempo;
     var btns = [];
 
     sensitivities = [100, 70, 40, 15, 1];
@@ -8,6 +8,7 @@ var gameMain = function(game){
     labelsAmount = ['0%', '25%', '50%', '75%', '100%'];
     waves = ['sin', 'saw', 'tri', 'square'];
     scales = ['None', 'Chromatic', 'Major', 'Minor', 'Blues', 'Pentatonic', 'Hijaz'];
+    tempos = ['None', 60, 90, 120, 150, 180];
     
     notes = [ 
         'c0','c#0','d0','d#0','e0','f0','f#0','g0','g#0','a0','a#0','b0', 'c1','c#1','d1','d#1','e1','f1','f#1','g1','g#1','a1','a#1','b1',
@@ -58,6 +59,7 @@ gameMain.prototype = {
         scale = 0;
         reverb = 3;
         sensitivity = 4;
+        tempo = 0;
 
         bg = game.add.image(0, 0, 'bg');
         bg.alpha = 0.4;
@@ -77,76 +79,88 @@ gameMain.prototype = {
             } catch(e){}    
         }, 1000);
 
-        initAd();
-        getReading();
+        //initAd();
+        watchReading();
     }
 };
 
-function getReading(){
+function watchReading(){
     window.plugin.lightsensor.watchReadings(function success(reading){
-        luminosity = parseInt(reading.intensity);
-
-        frequency_check = luminosity * factor;
-        frequency_text = "";
-        
-        if (Math.abs(frequency_check - last_frequency) > sensitivities[sensitivity]){
-            if (scale != 0){
-                if (frequency_check < last_frequency){ // semitone down
-                    note--; 
-                }
-                else if (frequency_check > last_frequency){ // semitone up
-                    note++;
-                }
-
-                if (scale == 2){
-                    frequency = teoria.note(notes_major[note]).fq();
-                    frequency_text = notes_major[note];
-                } 
-                else if (scale == 4){
-                    frequency = teoria.note(notes_blues[note]).fq();
-                    frequency_text = notes_blues[note];
-                } 
-                else if (scale == 3){
-                    frequency = teoria.note(notes_minor[note]).fq();
-                    frequency_text = notes_minor[note];
-                } 
-                else if (scale == 5){
-                    frequency = teoria.note(notes_penta[note]).fq();
-                    frequency_text = notes_penta[note];
-                } 
-                else if (scale == 6){
-                    frequency = teoria.note(notes_hijaz[note]).fq();
-                    frequency_text = notes_hijaz[note];
-                } 
-                else if (scale == 1){
-                    frequency = teoria.note(notes[note]).fq();
-                    frequency_text = notes[note];
-                } 
-            }
-            else{
-                frequency = frequency_check; 
-                frequency_text = Math.round(frequency) + "Hz"; 
-            }
-            
-            var addedText = '';
-                
-            if (frequency > 20000){
-                frequency = 20000;  
-                addedText = "(Can't go above 20KHz)";
-            } 
-            else if (frequency == 0){
-               addedText = "(It's too dark here)"; 
-            }
-            
-            debug_label.text = luminosity + 'lx * ' + Math.round(factor * 100) / 100 + ' = ' + frequency_text + '\n' + addedText;
-            
-            var glide = T("param", {value: frequency});
-            osc.set({freq: glide});
-            glide.linTo(frequency, "25ms");
-    
-            last_frequency = frequency;
-        }
+        readLight();
     });      
+}
+
+function getReading(){
+    setInterval(function(){
+        window.plugin.lightsensor.getReading(function success(reading){
+            readLight();
+        })
+    }, 60000 / tempos[tempo]);
+}
+
+function readLight(){
+    luminosity = parseInt(reading.intensity);
+
+    frequency_check = luminosity * factor;
+    frequency_text = "";
+    
+    if (Math.abs(frequency_check - last_frequency) > sensitivities[sensitivity]){
+        if (scale != 0){
+            if (frequency_check < last_frequency){ // semitone down
+                note--; 
+            }
+            else if (frequency_check > last_frequency){ // semitone up
+                note++;
+            }
+
+            if (scale == 2){
+                frequency = teoria.note(notes_major[note]).fq();
+                frequency_text = notes_major[note];
+            } 
+            else if (scale == 4){
+                frequency = teoria.note(notes_blues[note]).fq();
+                frequency_text = notes_blues[note];
+            } 
+            else if (scale == 3){
+                frequency = teoria.note(notes_minor[note]).fq();
+                frequency_text = notes_minor[note];
+            } 
+            else if (scale == 5){
+                frequency = teoria.note(notes_penta[note]).fq();
+                frequency_text = notes_penta[note];
+            } 
+            else if (scale == 6){
+                frequency = teoria.note(notes_hijaz[note]).fq();
+                frequency_text = notes_hijaz[note];
+            } 
+            else if (scale == 1){
+                frequency = teoria.note(notes[note]).fq();
+                frequency_text = notes[note];
+            } 
+        }
+        else{
+            frequency = frequency_check; 
+            frequency_text = Math.round(frequency) + "Hz"; 
+        }
+        
+        var addedText = '';
+            
+        if (frequency > 20000){
+            frequency = 20000;  
+            addedText = "(Can't go above 20KHz)";
+        } 
+        else if (frequency == 0){
+           addedText = "(It's too dark here)"; 
+        }
+        
+        debug_label.text = luminosity + 'lx * ' + Math.round(factor * 100) / 100 + ' = ' + frequency_text + '\n' + addedText;
+        
+        var glide = T("param", {value: frequency});
+        osc.set({freq: glide});
+        glide.linTo(frequency, "25ms");
+
+        last_frequency = frequency;
+    }
 }
 
 function change_waveform(){  
@@ -193,10 +207,6 @@ function initAd(){
     });
     
     if(AdMob) AdMob.prepareInterstitial( {adId:admobid.interstitial, autoShow:false} );
-    
-   /* setTimeout(function(){
-       AdMob.showBanner(AdMob.AD_POSITION.BOTTOM_CENTER); 
-    }, 2000);*/
 }
 
 function buttons_labels(){
@@ -228,10 +238,15 @@ function buttons_labels(){
     });
     Label_reverb.anchor.set(0.5, 0.5);
 
-    Label_sens= game.add.text(525, 738, labelsAmount[sensitivity], {
+    Label_sens = game.add.text(525, 738, labelsAmount[sensitivity], {
         font: '48px ' + font, fill: 'white', fontWeight: 'normal', align: 'center', stroke:'black', strokeThickness: 1
     });
     Label_sens.anchor.set(0.5, 0.5);
+    
+    Label_tempo = game.add.text(525, 891, tempos[tempo] + "bpm", {
+        font: '48px ' + font, fill: 'white', fontWeight: 'normal', align: 'center', stroke:'black', strokeThickness: 1
+    });
+    Label_tempo.anchor.set(0.5, 0.5);
 
     next_btn_wave = game.add.sprite(644, 225, 'next');
     next_btn_wave.scale.set(0.5, 0.5);
@@ -304,6 +319,24 @@ function buttons_labels(){
         if (sensitivity > 0) sensitivity--;
         Label_sens.text = labelsAmount[sensitivity];
     }, this);
+    
+    plus_btn_tempo = game.add.sprite(644, 835, 'plus');
+    plus_btn_tempo.scale.set(0.5, 0.5);
+    plus_btn_tempo.inputEnabled = true;
+    plus_btn_tempo.events.onInputDown.add(function(){
+        if (tempo < 5) tempo++;
+        changeTempo();
+        Label_tempo.text = tempos[tempo] + "bpm";
+    }, this);
+
+    plus_btn_tempo = game.add.sprite(270, 835, 'minus');
+    plus_btn_tempo.scale.set(0.5, 0.5);
+    plus_btn_tempo.inputEnabled = true;
+    plus_btn_tempo.events.onInputDown.add(function(){
+        if (tempo > 0) tempo--;
+        changeTempo();
+        Label_tempo.text = tempos[tempo] + "bpm";
+    }, this);
 
     calibrate_btn_440 = game.add.sprite(245, 95, 'calibrate');
     calibrate_btn_440.scale.set(0.7, 0.45);
@@ -344,7 +377,7 @@ function buttons_labels(){
     debug_label = game.add.text(40, 40, "No light sensor activity. It might be too dark.", {font: '34px ' + font, fill: 'white', fontWeight: 'bold', align: 'left'
     });
 
-    mute_btn = game.add.sprite(620, 840, 'mute_btn');
+    mute_btn = game.add.sprite(620, 950, 'mute_btn');
     mute_btn.frame = 0;
     mute_btn.scale.set(0.62, 0.6);
     mute_btn.inputEnabled = true;
@@ -353,7 +386,7 @@ function buttons_labels(){
     }, this);
     mute_btn.alpha = 0.9;
 
-    info_btn = game.add.sprite(270, 840, 'info');
+    info_btn = game.add.sprite(270, 950, 'info');
     info_btn.scale.set(0.62, 0.6);
     info_btn.inputEnabled = true;
     info_btn.events.onInputDown.add(function(){
@@ -362,7 +395,7 @@ function buttons_labels(){
     }, this);
     info_btn.alpha = 0.9;
     
-    reset_btn = game.add.sprite(445, 840, 'reset');
+    reset_btn = game.add.sprite(445, 950, 'reset');
     reset_btn.scale.set(0.62, 0.6);
     reset_btn.inputEnabled = true;
     reset_btn.events.onInputDown.add(function(){
@@ -372,6 +405,18 @@ function buttons_labels(){
     reset_btn.alpha = 0.9;
 
     btns = [reset_btn, info_btn,  mute_btn, minus_btn_sens, plus_btn_sens, minus_btn_rev, plus_btn_rev, next_btn_scale, prev_btn_scale, next_btn_wave, prev_btn_wave];
+}
+
+function changeTempo(){
+    if (tempo != 0){
+        window.plugin.lightsensor.stop();
+        getReading();
+    }
+    
+    else{
+        watchReading();
+    }
+
 }
 
 function calibrate(num){
