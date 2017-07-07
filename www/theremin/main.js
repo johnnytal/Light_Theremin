@@ -86,19 +86,19 @@ gameMain.prototype = {
 
 function watchReading(){
     window.plugin.lightsensor.watchReadings(function success(reading){
-        readLight();
+        readLight(reading);
     });      
 }
 
 function getReading(){
     setInterval(function(){
         window.plugin.lightsensor.getReading(function success(reading){
-            readLight();
-        })
+            readLight(reading);
+        });
     }, 60000 / tempos[tempo]);
 }
 
-function readLight(){
+function readLight(reading){
     luminosity = parseInt(reading.intensity);
 
     frequency_check = luminosity * factor;
