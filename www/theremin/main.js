@@ -8,7 +8,7 @@ var gameMain = function(game){
     labelsAmount = ['0%', '25%', '50%', '75%', '100%'];
     waves = ['sin', 'saw', 'tri', 'square'];
     scales = ['None', 'Chromatic', 'Major', 'Minor', 'Blues', 'Pentatonic', 'Hijaz'];
-    tempos = ['None', 60, 90, 120, 150, 180];
+    tempos = ['None', 40, 90, 140, 190, 240];
     
     notes = [ 
         'c0','c#0','d0','d#0','e0','f0','f#0','g0','g#0','a0','a#0','b0', 'c1','c#1','d1','d#1','e1','f1','f#1','g1','g#1','a1','a#1','b1',
@@ -91,7 +91,11 @@ function watchReading(){
 }
 
 function getReading(){
-    setInterval(function(){
+    try{
+        clearInterval(timer);
+    }catch(e){}
+    
+    var timer = setInterval(function(){
         window.plugin.lightsensor.getReading(function success(reading){
             readLight(reading);
         });
