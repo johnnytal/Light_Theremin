@@ -1,6 +1,6 @@
 var gameMain = function(game){   
     var osc, rev, luminosity, frequency, frequency_check;
-    var note, last_frequency, factor, form, scale, reverb, sensitivity, tempo;
+    var note, last_frequency, factor, form, scale, reverb, sensitivity, tempo, timer;
     var btns = [];
 
     sensitivities = [100, 70, 40, 15, 1];
@@ -8,7 +8,7 @@ var gameMain = function(game){
     labelsAmount = ['0%', '25%', '50%', '75%', '100%'];
     waves = ['sin', 'saw', 'tri', 'square'];
     scales = ['None', 'Chromatic', 'Major', 'Minor', 'Blues', 'Pentatonic', 'Hijaz'];
-    tempos = ['None', 40, 90, 140, 190, 240];
+    tempos = ['None', 60, 120, 180, 240];
     
     notes = [ 
         'c0','c#0','d0','d#0','e0','f0','f#0','g0','g#0','a0','a#0','b0', 'c1','c#1','d1','d#1','e1','f1','f#1','g1','g#1','a1','a#1','b1',
@@ -95,7 +95,7 @@ function getReading(){
         clearInterval(timer);
     }catch(e){}
     
-    var timer = setInterval(function(){
+    timer = setInterval(function(){
         window.plugin.lightsensor.getReading(function success(reading){
             readLight(reading);
         });
@@ -328,7 +328,7 @@ function buttons_labels(){
     plus_btn_tempo.scale.set(0.5, 0.5);
     plus_btn_tempo.inputEnabled = true;
     plus_btn_tempo.events.onInputDown.add(function(){
-        if (tempo < 5) tempo++;
+        if (tempo < 4) tempo++;
         changeTempo();
         Label_tempo.text = tempos[tempo] + "bpm";
     }, this);
