@@ -79,7 +79,7 @@ gameMain.prototype = {
             } catch(e){}    
         }, 1000);
 
-        //initAd();
+        initAd();
         watchReading();
     }
 };
@@ -222,6 +222,9 @@ function buttons_labels(){
     game.add.text(30, 685, 'Sensitivity', {
         font: '40px ' + font, fill: '#71d9ed', fontWeight: 'bold', align: 'center', stroke:'darkgreen', strokeThickness: 2
     });
+    game.add.text(55, 835, 'Tempo', {
+        font: '40px ' + font, fill: '#71d9ed', fontWeight: 'bold', align: 'center', stroke:'darkblue', strokeThickness: 2
+    });
 
     Label_wave = game.add.text(525, 280, waves[0], {
         font: '48px ' + font, fill: 'white', fontWeight: 'normal', align: 'center', stroke:'black', strokeThickness: 1
@@ -243,7 +246,7 @@ function buttons_labels(){
     });
     Label_sens.anchor.set(0.5, 0.5);
     
-    Label_tempo = game.add.text(525, 891, tempos[tempo] + "bpm", {
+    Label_tempo = game.add.text(525, 891, tempos[tempo], {
         font: '48px ' + font, fill: 'white', fontWeight: 'normal', align: 'center', stroke:'black', strokeThickness: 1
     });
     Label_tempo.anchor.set(0.5, 0.5);
@@ -324,18 +327,22 @@ function buttons_labels(){
     plus_btn_tempo.scale.set(0.5, 0.5);
     plus_btn_tempo.inputEnabled = true;
     plus_btn_tempo.events.onInputDown.add(function(){
-        if (tempo < 4) tempo++;
-        changeTempo();
-        Label_tempo.text = tempos[tempo] + "bpm";
+        if (tempo < 4){
+            tempo++;
+            changeTempo();
+            Label_tempo.text = tempos[tempo] + "bpm";  
+        } 
     }, this);
 
     plus_btn_tempo = game.add.sprite(270, 835, 'minus');
     plus_btn_tempo.scale.set(0.5, 0.5);
     plus_btn_tempo.inputEnabled = true;
     plus_btn_tempo.events.onInputDown.add(function(){
-        if (tempo > 0) tempo--;
-        changeTempo();
-        Label_tempo.text = tempos[tempo] + "bpm";
+        if (tempo > 0){
+            tempo--;
+            changeTempo();
+            Label_tempo.text = tempos[tempo] + "bpm";  
+        } 
     }, this);
 
     calibrate_btn_440 = game.add.sprite(245, 95, 'calibrate');
@@ -377,17 +384,17 @@ function buttons_labels(){
     debug_label = game.add.text(40, 40, "No light sensor activity. It might be too dark.", {font: '34px ' + font, fill: 'white', fontWeight: 'bold', align: 'left'
     });
 
-    mute_btn = game.add.sprite(620, 950, 'mute_btn');
+    mute_btn = game.add.sprite(200, 980, 'mute_btn');
     mute_btn.frame = 0;
-    mute_btn.scale.set(0.62, 0.6);
+    mute_btn.scale.set(0.5, 0.42);
     mute_btn.inputEnabled = true;
     mute_btn.events.onInputDown.add(function(){
         mute();
     }, this);
     mute_btn.alpha = 0.9;
 
-    info_btn = game.add.sprite(270, 950, 'info');
-    info_btn.scale.set(0.62, 0.6);
+    info_btn = game.add.sprite(50, 100, 'info');
+    info_btn.scale.set(0.5, 0.42);
     info_btn.inputEnabled = true;
     info_btn.events.onInputDown.add(function(){
         killOsc();
@@ -395,8 +402,8 @@ function buttons_labels(){
     }, this);
     info_btn.alpha = 0.9;
     
-    reset_btn = game.add.sprite(445, 950, 'reset');
-    reset_btn.scale.set(0.62, 0.6);
+    reset_btn = game.add.sprite(50, 980, 'reset');
+    reset_btn.scale.set(0.5, 0.42);
     reset_btn.inputEnabled = true;
     reset_btn.events.onInputDown.add(function(){
         killOsc();
@@ -420,6 +427,7 @@ function changeTempo(){
     }
     
     else{
+        Label_tempo.text = tempos[tempo];
         watchReading();
     }
 
