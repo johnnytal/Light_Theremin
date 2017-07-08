@@ -329,8 +329,8 @@ function buttons_labels(){
     plus_btn_tempo.events.onInputDown.add(function(){
         if (tempo < 4){
             tempo++;
-            changeTempo();
             Label_tempo.text = tempos[tempo] + "bpm";  
+            changeTempo();
         } 
     }, this);
 
@@ -340,8 +340,8 @@ function buttons_labels(){
     plus_btn_tempo.events.onInputDown.add(function(){
         if (tempo > 0){
             tempo--;
-            changeTempo();
             Label_tempo.text = tempos[tempo] + "bpm";  
+            changeTempo();
         } 
     }, this);
 
