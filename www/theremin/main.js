@@ -79,8 +79,8 @@ gameMain.prototype = {
             } catch(e){}    
         }, 1000);
 
-        //initAd();
-        //watchReading();
+        initAd();
+        watchReading();
     }
 };
 
