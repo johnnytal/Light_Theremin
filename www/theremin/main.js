@@ -62,7 +62,7 @@ gameMain.prototype = {
         tempo = 0;
 
         bg = game.add.image(0, 0, 'bg');
-        bg.alpha = 0.4;
+        bg.alpha = 0.6;
         
         buttons_labels();
 
@@ -79,8 +79,8 @@ gameMain.prototype = {
             } catch(e){}    
         }, 1000);
 
-        initAd();
-        watchReading();
+        //initAd();
+        //watchReading();
     }
 };
 
@@ -142,6 +142,8 @@ function readLight(reading){
             frequency = frequency_check; 
             frequency_text = Math.round(frequency) + "Hz"; 
         }
+
+        var frequency_text_correct = frequency_text.replace("#", "♯");
         
         var addedText = '';
             
@@ -153,7 +155,7 @@ function readLight(reading){
            addedText = "(It's too dark here)"; 
         }
         
-        debug_label.text = luminosity + 'lx * ' + Math.round(factor * 100) / 100 + ' = ' + frequency_text + '\n' + addedText;
+        debug_label.text = luminosity + 'lux * ' + Math.round(factor * 100) / 100 + ' = ' + frequency_text_correct + '\n' + addedText;
         
         var glide = T("param", {value: frequency});
         osc.set({freq: glide});
@@ -210,19 +212,19 @@ function initAd(){
 }
 
 function buttons_labels(){
-    game.add.text(40, 225, 'Waveform', {
+    game.add.text(40, 225 + 30, 'Waveform', {
         font: '40px ' + font, fill: '#71d9ed', fontWeight: 'bold', align: 'center', stroke:'darkblue', strokeThickness: 2
     });
-    game.add.text(70, 385, 'Scale', {
+    game.add.text(70, 385 + 30, 'Scale', {
         font: '40px ' + font, fill: '#71d9ed', fontWeight: 'bold', align: 'center', stroke:'darkgreen', strokeThickness: 2
     });
-    game.add.text(55, 535, 'Reverb', {
+    game.add.text(55, 535 + 30, 'Reverb', {
         font: '40px ' + font, fill: '#71d9ed', fontWeight: 'bold', align: 'center', stroke:'darkblue', strokeThickness: 2
     });
-    game.add.text(30, 685, 'Sensitivity', {
+    game.add.text(30, 685 + 30, 'Sensitivity', {
         font: '40px ' + font, fill: '#71d9ed', fontWeight: 'bold', align: 'center', stroke:'darkgreen', strokeThickness: 2
     });
-    game.add.text(55, 835, 'Tempo', {
+    game.add.text(55, 835 + 30, 'Tempo', {
         font: '40px ' + font, fill: '#71d9ed', fontWeight: 'bold', align: 'center', stroke:'darkblue', strokeThickness: 2
     });
 
@@ -252,7 +254,6 @@ function buttons_labels(){
     Label_tempo.anchor.set(0.5, 0.5);
 
     next_btn_wave = game.add.sprite(644, 225, 'next');
-    next_btn_wave.scale.set(0.5, 0.5);
     next_btn_wave.inputEnabled = true;
     next_btn_wave.events.onInputDown.add(function(){
         form++;
@@ -260,9 +261,9 @@ function buttons_labels(){
         Label_wave.text = waves[form];
         change_waveform();
     }, this);
+    next_btn_wave.alpha = 0.8;
     
     prev_btn_wave = game.add.sprite(270, 225, 'prev');
-    prev_btn_wave.scale.set(0.5, 0.5);
     prev_btn_wave.inputEnabled = true;
     prev_btn_wave.events.onInputDown.add(function(){
         form--;
@@ -270,61 +271,61 @@ function buttons_labels(){
         Label_wave.text = waves[form];
         change_waveform();
     }, this);
+    prev_btn_wave.alpha = 0.8;
 
     next_btn_scale = game.add.sprite(644, 375, 'next');
-    next_btn_scale.scale.set(0.5, 0.5);
     next_btn_scale.inputEnabled = true;
     next_btn_scale.events.onInputDown.add(function(){
         scale++;
         if (scale > 6) scale = 0;
         Label_scale.text = scales[scale];
     }, this);
+    next_btn_scale.alpha = 0.8;
 
     prev_btn_scale = game.add.sprite(270, 375, 'prev');
-    prev_btn_scale.scale.set(0.5, 0.5);
     prev_btn_scale.inputEnabled = true;
     prev_btn_scale.events.onInputDown.add(function(){
         scale--;
         if (scale < 0) scale = 6;
         Label_scale.text = scales[scale];
     }, this);
+    prev_btn_scale.alpha = 0.8;
 
     plus_btn_rev = game.add.sprite(644, 525, 'plus');
-    plus_btn_rev.scale.set(0.5, 0.5);
     plus_btn_rev.inputEnabled = true;
     plus_btn_rev.events.onInputDown.add(function(){
         if (reverb < 4) reverb++;
         Label_reverb.text = labelsAmount[reverb];
         change_waveform();
     }, this);
+    plus_btn_rev.alpha = 0.8;
 
     minus_btn_rev = game.add.sprite(270, 525, 'minus');
-    minus_btn_rev.scale.set(0.5, 0.5);
     minus_btn_rev.inputEnabled = true;
     minus_btn_rev.events.onInputDown.add(function(){
         if (reverb > 0) reverb--;
         Label_reverb.text = labelsAmount[reverb];
         change_waveform();
     }, this);
+    minus_btn_rev.alpha = 0.8;
 
     plus_btn_sens = game.add.sprite(644, 680, 'plus');
-    plus_btn_sens.scale.set(0.5, 0.5);
     plus_btn_sens.inputEnabled = true;
     plus_btn_sens.events.onInputDown.add(function(){
         if (sensitivity < 4) sensitivity++;
         Label_sens.text = labelsAmount[sensitivity];
     }, this);
+    plus_btn_sens.alpha = 0.8;
 
     minus_btn_sens = game.add.sprite(270, 680, 'minus');
-    minus_btn_sens.scale.set(0.5, 0.5);
     minus_btn_sens.inputEnabled = true;
     minus_btn_sens.events.onInputDown.add(function(){
         if (sensitivity > 0) sensitivity--;
         Label_sens.text = labelsAmount[sensitivity];
     }, this);
+    minus_btn_sens.alpha = 0.8;
     
     plus_btn_tempo = game.add.sprite(644, 835, 'plus');
-    plus_btn_tempo.scale.set(0.5, 0.5);
     plus_btn_tempo.inputEnabled = true;
     plus_btn_tempo.events.onInputDown.add(function(){
         if (tempo < 4){
@@ -333,9 +334,9 @@ function buttons_labels(){
             changeTempo();
         } 
     }, this);
+    plus_btn_tempo.alpha = 0.8;
 
     plus_btn_tempo = game.add.sprite(270, 835, 'minus');
-    plus_btn_tempo.scale.set(0.5, 0.5);
     plus_btn_tempo.inputEnabled = true;
     plus_btn_tempo.events.onInputDown.add(function(){
         if (tempo > 0){
@@ -344,6 +345,7 @@ function buttons_labels(){
             changeTempo();
         } 
     }, this);
+    plus_btn_tempo.alpha = 0.8;
 
     calibrate_btn_440 = game.add.sprite(245, 95, 'calibrate');
     calibrate_btn_440.scale.set(0.7, 0.45);
@@ -357,6 +359,8 @@ function buttons_labels(){
     });
     Label_440.alpha = 0.7;
     
+    Label_440.x = calibrate_btn_440.x + Label_440.width / 8;
+    
     calibrate_btn_880 = game.add.sprite(435, 95, 'calibrate');
     calibrate_btn_880.scale.set(0.7, 0.45);
     calibrate_btn_880.inputEnabled = true;
@@ -368,6 +372,8 @@ function buttons_labels(){
         font: '18px ' + font, fill: 'yellow', fontWeight: 'normal', align: 'center', stroke:'#ffffff', strokeThickness: 1
     });
     Label_880.alpha = 0.8;
+    
+    Label_880.x = calibrate_btn_880.x + Label_880.width / 8;
     
     calibrate_btn_1320 = game.add.sprite(625, 95, 'calibrate');
     calibrate_btn_1320.scale.set(0.7, 0.45);
@@ -381,8 +387,11 @@ function buttons_labels(){
     });
     Label_1320.alpha = 0.9;
     
-    debug_label = game.add.text(40, 40, "No light sensor activity. It might be too dark.", {font: '34px ' + font, fill: 'white', fontWeight: 'bold', align: 'left'
+    Label_1320.x = calibrate_btn_1320.x + Label_1320.width / 8;
+    
+    debug_label = game.add.text(100, 35, "No light sensor activity. It might be too dark.", {font: '34px ' + font, fill: 'white', fontWeight: 'bold', align: 'center'
     });
+    debug_label.x = game.world.centerX - debug_label.width / 2;
 
     mute_btn = game.add.sprite(200, 980, 'mute_btn');
     mute_btn.frame = 0;

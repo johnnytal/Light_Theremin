@@ -12,7 +12,7 @@ preloader.prototype = {
             font: '18px', fill: 'lightgrey', fontWeight: 'normal', align: 'center'
         });
         
-        game.load.image('bg', 'theremin/images/bg.jpg');
+        game.load.image('bg', 'theremin/images/newBg.jpg');
         game.load.image('next', 'theremin/images/next.png');
         game.load.image('prev', 'theremin/images/prev.png');
         game.load.image('plus', 'theremin/images/plus.png');

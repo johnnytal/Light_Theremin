@@ -35,6 +35,11 @@ boot.prototype = {
             
             this.scale.forceOrientation(true, false );
         } 
+        
+        else{
+            this.scale.maxWidth = 425;
+            this.scale.maxHeight = 550;    
+        }
 
         game.state.start('Preloader');
     }

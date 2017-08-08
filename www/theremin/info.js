@@ -11,7 +11,8 @@ info.prototype = {
         "Working with lamp dimmer is highly recommended.\n\n" +
         "4. My favorite settings:\nSin / Saw wave, Pentatonic / Hijaz scale, 25% / 75% reverb.\n\n" +
         "5. Be considerate of dogs in a highly lit environment.\n\n" +
-        "Created by Johnny Tal, iLyich Games - johnnytal9@gmail.com", {
+        "Created by Johnny Tal, iLyich Games - johnnytal9@gmail.com\n\n" + 
+        "Please rate if you like!", {
             font: '28px ' + font, fill: 'white', align: 'left', stroke:'#ffffff', strokeThickness: 0
         });
         
@@ -22,11 +23,6 @@ info.prototype = {
             if(AdMob) AdMob.showInterstitial();
             game.state.start("Game");  
         }, this);
-       
-        Label_support= game.add.text(30, 700, 'To support this project and get the latest updates,\n please consider purchasing "Light Theremin - Supporters edition"\n at the play store (also, of course, removes ads)', {
-            font: '32px ' + font, fill: 'white', fontWeight: 'normal', align: 'center'
-        });
-        Label_support.alpha = 0.8;
         
         game.add.text(110, 860, '(Interstitial ad will be displayed before returning to main screen)', {
             font: '22px ' + font, fill: 'white', fontWeight: 'normal', align: 'center'
